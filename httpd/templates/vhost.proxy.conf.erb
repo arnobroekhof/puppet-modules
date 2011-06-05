@@ -1,0 +1,11 @@
+#### MANAGED BY PUPPET !!!! ####
+
+NameVirtualHost <%= server_name %>:80
+<VirtualHost <%= server_name %>:80 >
+	ServerName <%= server_name %>
+	ErrorLog /srv/<%= name %>/log/error.log
+	TransferLog /srv/<%= name %>/log/access.log
+	<Location <%= proxy_path %> >
+		ProxyPass <%= proxy_website %>
+	</Location>
+</VirtualHost>

@@ -1,5 +1,7 @@
-define httpd::website( 		$bind_address = '',
-				$server_name = '' ) {
+define httpd::website_proxy( 		$bind_address = '',
+					$proxy_path = '',
+					$proxy_website = '',
+					$server_name = '' ) {
 
 	file { "/srv/$name":
 		ensure => 'directory',
@@ -8,12 +10,6 @@ define httpd::website( 		$bind_address = '',
 		require => Package['httpd']
 	}
 
-	file { "/srv/$name/www":
-		ensure => 'directory',
-		owner => 'apache',
-		group => 'apache',
-		require => File["/srv/$name"],
-	}
 	file { "/srv/$name/log":
 		ensure => 'directory',
 		owner => 'apache',
@@ -26,9 +22,9 @@ define httpd::website( 		$bind_address = '',
 		owner => 'root',
 		group => 'root',
 		mode => '644',
-		content => template('httpd/vhost.conf.erb'),
+		content => template('httpd/vhost.proxy.conf.erb'),
 		notify => Service['httpd'],
-		require => [ File["/srv/$name/www"], File["/srv/$name/log"] ],
+		require => [ File["/srv/$name"], File["/srv/$name/log"] ],
 	}
 		
 }
