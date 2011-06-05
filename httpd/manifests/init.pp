@@ -5,22 +5,29 @@
 # Usage:
 #
 # include httpd
-# httpd::ssl_website (	ssl_bind_address => 'xxx.xxx.xxx.xxx',
+# httpd::ssl_website {	'websitename': ssl_bind_address => 'xxx.xxx.xxx.xxx',
 #                                ssl_certificate => '/path/to/crt/file.crt',
 #                                ssl_keyfile => '/path/to/key/file.key',
-#                                server_name => 'www.somewebsite.com' 
+#                                server_name => 'www.somewebsite.com/'  }
 # if you leave ssl_certificate empty then an self signed certificate will be created
 #
-#httpd::ssl_website_proxy(       ssl_bind_address => 'xxx.xxx.xxx.xxx',
-#                                ssl_certificate =>'/path/to/crt/file.crt',
-#                                ssl_keyfile => '/path/to/key/file.key',
-#                                server_name => 'www.somewebsite.com',
-#                                proxy_website => 'http://somehost:someport',
-#                                proxy_path => '/' ) {
+#httpd::ssl_website_proxy{ 'websitename':       ssl_bind_address => 'xxx.xxx.xxx.xxx',
+#                                		ssl_certificate =>'/path/to/crt/file.crt',
+#                                		ssl_keyfile => '/path/to/key/file.key',
+#                                		server_name => 'www.somewebsite.com',
+#                                		proxy_website => 'http://somehost:someport/',
+#                                		proxy_path => '/' }
 # if you leave ssl_certificate empty then an self signed certificate will be created
 #
-# TODO
-# create website and website_proxy define
+# httpd::website{ 'websitename':
+#				bind_address => 'xxx.xxx.xxx.xxx',
+#				server_name => 'www.somewebsitename.com' }
+#
+# httpd::website_proxy { 'websitename':
+#				bind_address => 'xxx.xxx.xxx.xxx',
+#				server_name => 'www.somewebsitename.comf',
+#				proxy_path => '/',
+#				proxy_website => 'http://somehost:someport/'
 
 
 import "classes/*.pp"
