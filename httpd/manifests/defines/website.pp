@@ -1,6 +1,7 @@
 define httpd::website( 		$bind_address = '',
 				$server_name = '',
-				$php_enabled = '' ) {
+				$php_enabled = '',
+				$password_protected = '' ) {
 
 	if $php_enabled == "yes" {
 		package { 'php-mysql':
@@ -18,6 +19,14 @@ define httpd::website( 		$bind_address = '',
 		package { 'php-cli':
 			ensure => 'installed',
 			require => Package['httpd']
+		}
+	}
+
+	if $password_protected == 'yes' {
+		exec { "touch /srv/$name/htpasswd.db":
+			creates => "/srv/$name/htpasswd.db",
+			path => [ '/usr/bin', '/bin' ],
+			require => File["/srv/$name"]	
 		}
 	}
 
@@ -52,4 +61,3 @@ define httpd::website( 		$bind_address = '',
 	}
 		
 }
-				

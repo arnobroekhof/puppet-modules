@@ -21,6 +21,12 @@ ServerName <%= server_name %>
 # Reverse proxy path
 <Location <%= proxy_path %> >
 	ProxyPass <%= proxy_website %>
+	<% if password_protected == "yes" %>
+                AuthType Basic
+                AuthName "Restricted Files"
+                AuthUserFile /srv/<%= name %>/htpasswd.db
+                Require valid-user
+	<% end %>
 </Location>
 
 # Use separate log files for the SSL virtual host; note that LogLevel

@@ -1,7 +1,16 @@
 define httpd::website_proxy( 		$bind_address = '',
 					$proxy_path = '',
 					$proxy_website = '',
-					$server_name = '' ) {
+					$server_name = '',
+					$password_protected = '' ) {
+
+	if $password_protected == 'yes' {
+                exec { "touch /srv/$name/htpasswd.db":
+                        creates => "/srv/$name/htpasswd.db",
+			path => [ '/bin', 'usr/bin' ],
+                        require => File["/srv/$name"]
+                }
+        }
 
 	file { "/srv/$name":
 		ensure => 'directory',

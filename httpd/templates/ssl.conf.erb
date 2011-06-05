@@ -24,6 +24,15 @@ ErrorLog /srv/<%= name %>/log/ssl_error_log
 TransferLog /srv/<%= name %>/log/ssl_access_log
 LogLevel warn
 
+<% if password_protected == "yes" %>
+        <Location />
+                AuthType Basic
+                AuthName "Restricted Files"
+                AuthUserFile /srv/<%= name %>/htpasswd.db
+                Require valid-user
+        </Location>
+<% end %>
+
 #   SSL Engine Switch:
 #   Enable/Disable SSL for this virtual host.
 SSLEngine on

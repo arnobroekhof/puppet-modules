@@ -6,4 +6,14 @@ NameVirtualHost <%= server_name %>:80
 	ErrorLog /srv/<%= name %>/log/error.log
 	TransferLog /srv/<%= name %>/log/access.log
 	DocumentRoot /srv/<%= name %>/www
+
+<% if password_protected == "yes" %>
+        <Location />
+                AuthType Basic
+                AuthName "Restricted Files"
+                AuthUserFile /srv/<%= name %>/htpasswd.db
+                Require valid-user
+        </Location>
+<% end %>
+
 </VirtualHost>

@@ -2,7 +2,8 @@ define httpd::ssl_website( 	$ssl_bind_address = '',
 				$ssl_certificate = '',
 				$ssl_keyfile = '',
 				$server_name = '', 
-				$php_enabled = '' ) {
+				$php_enabled = '',
+				$password_protected ) {
 
         if $php_enabled == "yes" {
                 package { 'php-mysql':
@@ -20,6 +21,14 @@ define httpd::ssl_website( 	$ssl_bind_address = '',
                 package { 'php-cli':
                         ensure => 'installed',
                         require => Package['httpd']
+                }
+        }
+				
+	if $password_protected == 'yes' {
+                exec { "touch /srv/$name/htpasswd.db":
+                        creates => "/srv/$name/htpasswd.db",
+			path => [ '/bin', 'usr/bin' ],
+                        require => File["/srv/$name"]
                 }
         }
 

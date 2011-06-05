@@ -3,7 +3,8 @@ define httpd::ssl_website_proxy( 	$ssl_bind_address = '',
 				$ssl_keyfile = '',
 				$server_name = '',
 				$proxy_website = '',
-				$proxy_path = '' ) {
+				$proxy_path = '',
+				$password_protected = '') {
 
 	package { "mod_ssl":
 		ensure => 'installed'
@@ -11,6 +12,14 @@ define httpd::ssl_website_proxy( 	$ssl_bind_address = '',
 	package { "openssl":
 		ensure => 'installed'
 	}
+	
+	if $password_protected == 'yes' {
+                exec { "touch /srv/$name/htpasswd.db":
+                        creates => "/srv/$name/htpasswd.db",
+			path => [ '/bin', 'usr/bin' ],
+                        require => File["/srv/$name"]
+                }
+        }
 
 	file { "/etc/httpd/conf.d/ssl.conf":
 		ensure => 'absent',

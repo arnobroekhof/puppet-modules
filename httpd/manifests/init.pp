@@ -1,6 +1,6 @@
 # httpd module
 # created by <arnobroekhof@gmail.com>
-# Version 0.4
+# Version 0.5
 #
 # Usage:
 #

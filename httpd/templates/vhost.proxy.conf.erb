@@ -7,5 +7,11 @@ NameVirtualHost <%= server_name %>:80
 	TransferLog /srv/<%= name %>/log/access.log
 	<Location <%= proxy_path %> >
 		ProxyPass <%= proxy_website %>
+		<% if password_protected == "yes" %>
+			AuthType Basic
+			AuthName "Restricted Files"
+			AuthUserFile /srv/<%= name %>/htpasswd.db
+			Require valid-user
+		<% end %>
 	</Location>
 </VirtualHost>
