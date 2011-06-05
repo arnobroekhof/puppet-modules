@@ -46,7 +46,7 @@ define httpd::ssl_website( 	$ssl_bind_address = '',
 		$ssl_certificate_file = "/srv/$name/ssl/$name.crt"
 		$ssl_keyfile_file = "/srv/$name/ssl/$name.key"
 
-		exec { "openssl req -new -newkey rsa:2048 -nodes -out /srv/$name/ssl/$name.csr -keyout /srv/$name/ssl/$name.key -subj '/C=NL/ST=Zuid-holland/L=Alphen aan den Rijn/O=CTO PO Beheer/OU=Publishing Online/CN=$server_name'":
+		exec { "openssl req -new -newkey rsa:2048 -nodes -out /srv/$name/ssl/$name.csr -keyout /srv/$name/ssl/$name.key -subj '/C=NL/ST=Noord-Holland/L=Amsterdam/O=Online Webhosting/OU=Online Admins/CN=$server_name'":
 			alias => "createcsr",
 			creates => "/srv/$name/ssl/$name.csr",
 			path => [ "/usr/bin", "/usr/sbin", "/bin", "/sbin" ],
