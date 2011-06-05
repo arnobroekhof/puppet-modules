@@ -1,6 +1,6 @@
 # httpd module
 # created by <arnobroekhof@gmail.com>
-# Version 0.5
+# Version 0.6
 #
 # Usage:
 #
@@ -31,7 +31,9 @@
 #				server_name => 'www.somewebsitename.comf',
 #				proxy_path => '/',
 #				proxy_website => 'http://somehost:someport/'
-
+# httpd::website::passwd { 'websitename':
+#				username => 'username',
+#				password => 'password' }
 
 import "classes/*.pp"
 import "defines/*.pp"

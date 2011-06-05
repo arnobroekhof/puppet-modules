@@ -1,6 +1,6 @@
 httpd module
 created by <arnobroekhof@gmail.com>
-Version 0.5
+Version 0.6
 OS: RedHat and CentOS
 
 Usage:
@@ -39,4 +39,10 @@ Usage:
                                proxy_path => '/',
                                proxy_website => 'http://somehost:someport/',
 			       password_protected => 'yes'  }
+
+  httpd::website::passwd { 'websitename':
+				username => 'username',
+				password => 'password' }
+
+!!! NOTE: the websitename needs to be the same as the websitename of the website define
 

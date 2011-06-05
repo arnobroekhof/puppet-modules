@@ -1,5 +1,5 @@
 define httpd::website( 		$bind_address = '',
-				$server_name = '',
+				$server_name,
 				$php_enabled = '',
 				$password_protected = '' ) {
 
@@ -24,6 +24,7 @@ define httpd::website( 		$bind_address = '',
 
 	if $password_protected == 'yes' {
 		exec { "touch /srv/$name/htpasswd.db":
+			alias => 'touching_passwd',
 			creates => "/srv/$name/htpasswd.db",
 			path => [ '/usr/bin', '/bin' ],
 			require => File["/srv/$name"]	
@@ -59,5 +60,4 @@ define httpd::website( 		$bind_address = '',
 		notify => Service['httpd'],
 		require => [ File["/srv/$name/www"], File["/srv/$name/log"] ],
 	}
-		
 }
