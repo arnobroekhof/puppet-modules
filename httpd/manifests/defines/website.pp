@@ -1,5 +1,25 @@
 define httpd::website( 		$bind_address = '',
-				$server_name = '' ) {
+				$server_name = '',
+				$php_enabled = '' ) {
+
+	if $php_enabled == "yes" {
+		package { 'php-mysql':
+			ensure => 'installed',
+			require => Package['httpd']
+		}
+		package { 'php':
+			ensure => 'installed',
+			require => Package['httpd']
+		}
+		package { 'php-xml':
+			ensure => 'installed',
+			require => Package['httpd']
+		}
+		package { 'php-cli':
+			ensure => 'installed',
+			require => Package['httpd']
+		}
+	}
 
 	file { "/srv/$name":
 		ensure => 'directory',

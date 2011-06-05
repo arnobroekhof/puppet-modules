@@ -1,7 +1,27 @@
 define httpd::ssl_website( 	$ssl_bind_address = '',
 				$ssl_certificate = '',
 				$ssl_keyfile = '',
-				$server_name = '' ) {
+				$server_name = '', 
+				$php_enabled = '' ) {
+
+        if $php_enabled == "yes" {
+                package { 'php-mysql':
+                        ensure => 'installed',
+                        require => Package['httpd']
+                }
+                package { 'php':
+                        ensure => 'installed',
+                        require => Package['httpd']
+                }
+                package { 'php-xml':
+                        ensure => 'installed',
+                        require => Package['httpd']
+                }
+                package { 'php-cli':
+                        ensure => 'installed',
+                        require => Package['httpd']
+                }
+        }
 
 	package { "mod_ssl":
 		ensure => 'installed'

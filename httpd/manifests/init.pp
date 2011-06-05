@@ -1,6 +1,6 @@
 # httpd module
 # created by <arnobroekhof@gmail.com>
-# Version 0.3
+# Version 0.4
 #
 # Usage:
 #
@@ -8,7 +8,9 @@
 # httpd::ssl_website {	'websitename': ssl_bind_address => 'xxx.xxx.xxx.xxx',
 #                                ssl_certificate => '/path/to/crt/file.crt',
 #                                ssl_keyfile => '/path/to/key/file.key',
-#                                server_name => 'www.somewebsite.com/'  }
+#                                server_name => 'www.somewebsite.com/',
+#				 php_enabled => 'yes'  }
+
 # if you leave ssl_certificate empty then an self signed certificate will be created
 #
 #httpd::ssl_website_proxy{ 'websitename':       ssl_bind_address => 'xxx.xxx.xxx.xxx',
@@ -21,7 +23,8 @@
 #
 # httpd::website{ 'websitename':
 #				bind_address => 'xxx.xxx.xxx.xxx',
-#				server_name => 'www.somewebsitename.com' }
+#				server_name => 'www.somewebsitename.com',
+#				php_enabled => 'yes' }
 #
 # httpd::website_proxy { 'websitename':
 #				bind_address => 'xxx.xxx.xxx.xxx',
