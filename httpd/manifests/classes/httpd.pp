@@ -15,7 +15,8 @@ class httpd(	$bind_addr = '0.0.0.0',
 		}
 	}
 	service { "httpd":
-		ensure => 'running'
+		ensure => 'running',
+		require => Package['httpd']
 	}
 
 	# template the httpd.conf
