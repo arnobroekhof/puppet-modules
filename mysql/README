@@ -1,0 +1,17 @@
+puppet mysql module
+Author: <arnobroekhof@gmail.com>
+Version: 0.1
+Covered OS: RedHat and CentOS
+
+This module installs en creates databases on the locahost.
+The default root and mysqladmin password needs to be altered in the classes/mysql.pp file
+it also created an my.cnf file in the homedir of the root user for easy access to the database
+
+Usage:
+
+include mysql
+mysql::createdb { 'databasename':
+			user => 'database_username',
+			password => 'database_password'
+		}
+
