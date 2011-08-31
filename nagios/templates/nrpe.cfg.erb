@@ -1,0 +1,34 @@
+log_facility=daemon
+pid_file=/var/run/nrpe.pid
+server_port=5666
+#server_address=127.0.0.1
+nrpe_user=nagios
+nrpe_group=nagios
+allowed_hosts=10.16.66.136
+dont_blame_nrpe=0
+debug=0
+command_timeout=60
+connection_timeout=300
+<% if architecture == "x86_64" then %>
+command[check_smtp]=/usr/lib64/nagios/plugins/check_smtp -H 'smtp.combine.local' -w 1 -c 3
+command[check_load]=/usr/lib64/nagios/plugins/check_load -w 5.0,4.0,3.0 -c 10.0,8.0,6.0
+command[check_procs]=/usr/lib64/nagios/plugins/check_procs -w 250 -c 400 -s RSZDT
+command[check_ldap_klund245]=/usr/lib64/nagios/plugins/check_ldap -H 'klund245.combine.local' -b dc=combine,dc=local
+command[check_procs_postfix]=/usr/lib64/nagios/plugins/check_procs -C master 
+command[check_procs_mysqld]=/usr/lib64/nagios/plugins/check_procs -C mysqld
+command[check_mysql]=/usr/lib64/nagios/plugins/check_mysql -u root 
+command[check_mysql_slave]=/usr/lib64/nagios/plugins/check_mysql -u root -S 
+command[check_httpd]=/usr/lib64/nagios/plugins/check_procs -C httpd
+<% end %>
+<% if architecture == "i386" then %>
+command[check_smtp]=/usr/lib/nagios/plugins/check_smtp -H 'smtp.combine.local' -w 1 -c 3
+command[check_load]=/usr/lib/nagios/plugins/check_load -w 5.0,4.0,3.0 -c 10.0,8.0,6.0
+command[check_procs]=/usr/lib/nagios/plugins/check_procs -w 250 -c 400 -s RSZDT
+command[check_ldap_klund245]=/usr/lib/nagios/plugins/check_ldap -H 'klund245.combine.local' -b dc=combine,dc=local
+command[check_procs_postfix]=/usr/lib/nagios/plugins/check_procs -C master 
+command[check_procs_mysqld]=/usr/lib/nagios/plugins/check_procs -C mysqld
+command[check_mysql]=/usr/lib/nagios/plugins/check_mysql -u root 
+command[check_mysql_slave]=/usr/lib/nagios/plugins/check_mysql -u root -S 
+command[check_httpd]=/usr/lib/nagios/plugins/check_procs -C httpd
+<% end %>
+
